@@ -35,14 +35,14 @@ function signUp(){
         console.log('signup')
         // get_user.push(userobj)
         // localStorage.setItem("users", JSON.stringify(userobj))
-        var findUser = get_users.find(function (value) {
+        var findUser = get_user.findIndex(function (value) {
             console.log(value.email, "value")
             if (value.email === email) {
                 return true
             }
         })
 
-        if (findUser === undefined) {
+        if (findUser === -1) {
             get_user.push(userobj)
             localStorage.setItem("users", JSON.stringify(get_user))
             alert("user signup")
@@ -55,14 +55,24 @@ function signUp(){
     }
 }
 
-// function login(){
-//     console.log(userobj)
-//     var email = document.getElementById('email').value
-//     var password = document.getElementById('password').value
-//     console.log(email)
-//     // if (email==userobj.email){
-//     //     console.log('exist')
-//     // }else{
-//     //     console.log('not exist')
-//     // }
-// }
+function login() {
+    var email = document.getElementById("email").value
+    var password = document.getElementById("password").value
+
+    var getUser = JSON.parse(localStorage.getItem("users"))
+
+    var userIndex = getUser.findIndex(function (value) {
+        if (value.email === email && value.password === password) return true
+    })
+
+    if (userIndex !== -1) {
+        alert("successfully login")
+        window.location.replace("./home.html")
+    } else {
+        console.log("credentials error")
+        alert("email or password does not match!")
+    }
+
+    console.log("userIndex", userIndex)
+
+}
