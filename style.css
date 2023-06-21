@@ -10,7 +10,7 @@ background: linear-gradient(to right, #2a0845, #6441A5); /* W3C, IE 10+/ Edge, F
 }
 h1{
     color: white;
-    border-bottom: 2px solid black;
+    text-align: center;
 }
 form{
     color: white;
@@ -18,10 +18,22 @@ form{
 .btn1{
     background-color: #6441A5 !important;
     border: none !important;
+    width: 100% !important;
 }
-form{
+/* styling for login page */
+.form{
+    height: 350px;
+    width: 550px;
+    margin: 10% auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 1px solid black;
+}
+
+/* styling for sign up page */
+.form2{
     height: 500px;
     width: 550px;
-    border: 1px solid red;
-    margin: 10px auto;
+    margin: 3% auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 1px solid black;
 }
