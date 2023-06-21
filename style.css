@@ -19,3 +19,9 @@ form{
     background-color: #6441A5 !important;
     border: none !important;
 }
+form{
+    height: 500px;
+    width: 550px;
+    border: 1px solid red;
+    margin: 10px auto;
+}
