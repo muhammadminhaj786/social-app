@@ -127,4 +127,6 @@ function delAll(){
 };
 
 
-
+function logout(){
+    windows.location.replace('index.html')
+}
