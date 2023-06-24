@@ -1,6 +1,9 @@
 var title = document.getElementById("title-input")
 var desc = document.getElementById('desc')
 var cardiv = document.getElementById('my-card') 
+
+function load() {}
+
 function addPost(){
     if(!title.value && !desc.value){
         return
