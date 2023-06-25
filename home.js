@@ -11,8 +11,8 @@ window.addEventListener("load",function(){
     <div class="card-body">
       <h5 class="card-title">${value.title}</h5>
       <p class="card-text">${value.desc}</p>
-      <a href="#" class="btn btn-success" onclick="editPost()">Edit</a>
-      <a href="#" class="btn btn-danger" onclick="delPost()">Delete</a>
+      <button class="btn btn-success" onclick="editPost(${value.id},this)">Edit</button>
+      <button class="btn btn-danger" onclick="delPost(${value.id},this)">Delete</button>
     </div>
   </div>`
       
@@ -40,8 +40,8 @@ function addPost(){
     <div class="card-body">
       <h5 class="card-title">${title.value}</h5>
       <p class="card-text">${desc.value}</p>
-      <a href="#" class="btn btn-success" onclick="editPost(${id},this)">Edit</a>
-      <a href="#" class="btn btn-danger" onclick="editPost(${id},this)" >Delete</a>
+      <button class="btn btn-success" onclick="editPost(${id}, this)">Edit</button>
+      <button class="btn btn-danger" onclick="delPost(${id}, this)" >Delete</button>
     </div>
   </div>`
     cardiv.innerHTML=card + cardiv.innerHTML
@@ -62,9 +62,34 @@ function addPost(){
 }
 
 //creating a edit function
-function editPost(el){
-  console.log('edit')
-  console.log(el.id)
+function editPost(id,el){
+  var indexNum;
+  var getPost = JSON.parse(localStorage.getItem('posts'))
+  var post = getPost.find(function (value, index) {
+    if (value.id === id) {
+        indexNum = index
+        return true
+      }
+  })
+
+  var edittitle = prompt("Enter title",)
+  var editdesc = prompt("Enter desc",)
+  var editobj = {
+    id: post.id,
+    title:edittitle,
+    desc:editdesc
+
+  }
+  getPost.splice(index,1,editobj)
+  localStorage.setItem('posts',JSON.stringify(getPost))
+  
+  //edit from ui
+    var h5title = e.parentNode.firstElementChild
+    var pdesc = e.parentNode.firstElementChild.nextElementSibling
+    h5title.innerHTML = edittitle
+    pdesc.innerHTML = editdesc
+
+
 }
 
 //creating a delete post function
@@ -77,5 +102,5 @@ function delPost(id,el){
   localStorage.setItem('posts', JSON.stringify(getposts))
   
   //removing from ui
-  el.parentNode.parentNode.remove()
+  console.log(el.parentNode.parentNode.remove())
 }
