@@ -1,13 +1,20 @@
-var title = document.getElementById("title-input")
-var desc = document.getElementById('desc')
-var cardiv = document.getElementById('my-card') 
+var cardDiv = document.getElementById('card-div') ;
+var loginUser;
+
 
 window.addEventListener("load",function(){
-  if(cardiv){
+  // var userLogin = this.localStorage.getItem('login user')
+ 
+  // var userLogin = localStorage.getItem("loginUser")
+  // if (!userLogin) {
+  //     window.location.replace("./index.html")
+  //     return
+  // }
+  if(cardDiv){
     var getPost = JSON.parse(localStorage.getItem('posts')) || []
     console.log('getposts',getPost)
     for (var value of getPost) {
-    cardiv.innerHTML += `<div class="card mt-5" style="width: 18rem;">
+    cardDiv.innerHTML += `<div class="card mt-5" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">${value.title}</h5>
       <p class="card-text">${value.desc}</p>
@@ -20,74 +27,80 @@ window.addEventListener("load",function(){
   }
 })
 
-function addPost(){
-    if(!title.value && !desc.value){
-      alert("please give title and description")
+//creating a add post function
+function addPost() {
+    console.log("addPost")
+    var title = document.getElementById("input")
+    var desc = document.getElementById("desc")
+
+
+    if (!title.value || !desc.value) {
+        alert("Please enter values")
         return
     }
 
     var id;
-    var getPost = JSON.parse(localStorage.getItem('posts')) || []
-    console.log('getposts',getPost)
+    var getPosts = JSON.parse(localStorage.getItem("posts")) || []
+    console.log("getPosts", getPosts)
 
-    if (getPost.length>0){
-      id=getPost[0].id + 1
-    }else{
-      id=1
+    if (getPosts.length > 0) {
+        id = getPosts[0].id + 1
+    } else {
+        id = 1
     }
 
-    var card = `<div class="card mt-5" style="width: 18rem;">
+
+    var card = `<div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">${title.value}</h5>
-      <p class="card-text">${desc.value}</p>
-      <button class="btn btn-success" onclick="editPost(${id}, this)">Edit</button>
-      <button class="btn btn-danger" onclick="delPost(${id}, this)" >Delete</button>
-    </div>
-  </div>`
-    cardiv.innerHTML=card + cardiv.innerHTML
+        <h5 class="card-title">${title.value}</h5>
+        <p class="card-text">${desc.value}</p>
 
-  
-    //create a post obj
-    var post_obj = {
-        id:id,
-        title:title.value,
-        desc:desc.value
+        <button class="btn btn-success" onclick="editPost(${id} , this)" >EDIT</button>
+        <button class="btn btn-danger" onclick="delPost(${id} , this)" >DELETE</button>
+
+    </div>
+</div>`
+
+    cardDiv.innerHTML = card + cardDiv.innerHTML 
+
+    var postObj = {
+        id: id,
+        title: title.value,
+        desc: desc.value
     }
 
-    getPost.unshift(post_obj)
-    localStorage.setItem("posts",JSON.stringify(getPost))
-    title.value=""
-    desc.value=""
+    getPosts.unshift(postObj)
+    localStorage.setItem("posts", JSON.stringify(getPosts))
+
+    title.value = ""
+    desc.value = ""
 
 }
-
 //creating a edit function
-function editPost(id,el){
+function editPost(id, el) {
   var indexNum;
-  var getPost = JSON.parse(localStorage.getItem('posts'))
-  var post = getPost.find(function (value, index) {
-    if (value.id === id) {
-        indexNum = index
-        return true
+  var getPosts = JSON.parse(localStorage.getItem("posts"))
+  var post = getPosts.find(function (value, index) {
+      if (value.id === id) {
+          indexNum = index
+          return true
       }
   })
-
-  var edittitle = prompt("Enter title",)
-  var editdesc = prompt("Enter desc",)
-  var editobj = {
-    id: post.id,
-    title:edittitle,
-    desc:editdesc
-
+  var editTitle = prompt("edit title", post.title)
+  var editDesc = prompt("edit desc", post.desc)
+  const editObj = {
+      id: post.id,
+      title: editTitle,
+      desc: editDesc
   }
-  getPost.splice(index,1,editobj)
-  localStorage.setItem('posts',JSON.stringify(getPost))
-  
+  getPosts.splice(indexNum, 1, editObj)
+  localStorage.setItem("posts", JSON.stringify(getPosts))
+
   //edit from ui
-    var h5title = e.parentNode.firstElementChild
-    var pdesc = e.parentNode.firstElementChild.nextElementSibling
-    h5title.innerHTML = edittitle
-    pdesc.innerHTML = editdesc
+  var h5Title = el.parentNode.firstElementChild
+  var pDesc = el.parentNode.firstElementChild.nextElementSibling
+  h5Title.innerHTML = editTitle
+  pDesc.innerHTML = editDesc
 
 
 }
@@ -102,5 +115,11 @@ function delPost(id,el){
   localStorage.setItem('posts', JSON.stringify(getposts))
   
   //removing from ui
-  console.log(el.parentNode.parentNode.remove())
+  el.parentNode.parentNode.remove()
+}
+
+//creating a logout function
+function logout(){
+  console.log('logout')
+  
 }
