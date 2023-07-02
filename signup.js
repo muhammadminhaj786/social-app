@@ -23,11 +23,11 @@ function signUp(){
         arr.push(userobj)
         console.log("first signup")
         localStorage.setItem("users", JSON.stringify(arr))
+        window.location.replace("./index.html")
+
 
     }else{
         console.log('signup')
-        // get_user.push(userobj)
-        // localStorage.setItem("users", JSON.stringify(userobj))
         var findUser = get_user.findIndex(function (value) {
             console.log(value.email, "value")
             if (value.email === email) {
@@ -39,7 +39,7 @@ function signUp(){
             get_user.push(userobj)
             localStorage.setItem("users", JSON.stringify(get_user))
             alert("user signup")
-            window.location.replace("./home.html")
+            window.location.replace("./index.html")
         } else {
             alert("email address already exists")
         }
