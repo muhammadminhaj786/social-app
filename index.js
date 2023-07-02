@@ -20,6 +20,7 @@ function login(){
     if (user !== undefined) {
         alert("successfully login")
         window.location.replace('./home.html')
+        localStorage.setItem('lognUser',JSON.stringify(user))
     } else {
         console.log("credentials error")
         alert("email or password does not match!")
